@@ -1,29 +1,54 @@
 import React, { useState } from 'react';
 
-function TreeNode({ node }) {
+function TreeNode({ node, depth }) {
     const [expanded, setExpanded] = useState(false);
+    const [readChecked, setReadChecked] = useState(false);
+    const [writeChecked, setWriteChecked] = useState(false);
 
     const hasChildren = node.children && node.children.length > 0;
 
     return (
-        <div style={{ marginLeft: 20 }}>
-            <div>
-                {hasChildren && (
-                    <button onClick={() => setExpanded(!expanded)} style={{ marginRight: 8 }}>
-                        {expanded ? '▼' : '▶'}
-                    </button>
-                )}
-                {node.name}
-            </div>
+        <>
+            <tr>
+                {/* Nom + indentation + chevron */}
+                <td style={{ paddingLeft: `${depth * 20}px` }}>
+                    {hasChildren && (
+                        <button
+                            onClick={() => setExpanded(!expanded)}
+                            style={{ marginRight: 8 }}
+                        >
+                            {expanded ? '▼' : '▶'}
+                        </button>
+                    )}
+                    {node.name}
+                </td>
 
-            {expanded && hasChildren && (
-                <div>
-                    {node.children.map(child => (
-                        <TreeNode key={child.id} node={child} />
-                    ))}
-                </div>
-            )}
-        </div>
+                {/* Checkbox Lire */}
+                <td style={{ textAlign: 'center' }}>
+                    <input
+                        type="checkbox"
+                        checked={readChecked}
+                        onChange={() => setReadChecked(!readChecked)}
+                    />
+                </td>
+
+                {/* Checkbox Modifier */}
+                <td style={{ textAlign: 'center' }}>
+                    <input
+                        type="checkbox"
+                        checked={writeChecked}
+                        onChange={() => setWriteChecked(!writeChecked)}
+                    />
+                </td>
+            </tr>
+
+            {/* Affichage récursif */}
+            {expanded &&
+                hasChildren &&
+                node.children.map(child => (
+                    <TreeNode key={child.id} node={child} depth={depth + 1} />
+                ))}
+        </>
     );
 }
 
