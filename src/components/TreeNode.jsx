@@ -1,16 +1,24 @@
+// 📄 src/components/TreeNode.jsx
 import React, { useState } from 'react';
 
-function TreeNode({ node, depth }) {
+function TreeNode({ node, depth, state, dispatch }) {
     const [expanded, setExpanded] = useState(false);
-    const [readChecked, setReadChecked] = useState(false);
-    const [writeChecked, setWriteChecked] = useState(false);
+    const nodeState = state[node.id];
 
     const hasChildren = node.children && node.children.length > 0;
+
+    const handleCheckboxChange = (permission, value) => {
+        dispatch({
+            type: 'TOGGLE_PERMISSION',
+            nodeId: node.id,
+            permission,
+            value,
+        });
+    };
 
     return (
         <>
             <tr>
-                {/* Nom + indentation + chevron */}
                 <td style={{ paddingLeft: `${depth * 20}px` }}>
                     {hasChildren && (
                         <button
@@ -23,30 +31,37 @@ function TreeNode({ node, depth }) {
                     {node.name}
                 </td>
 
-                {/* Checkbox Lire */}
                 <td style={{ textAlign: 'center' }}>
                     <input
                         type="checkbox"
-                        checked={readChecked}
-                        onChange={() => setReadChecked(!readChecked)}
+                        checked={nodeState.read}
+                        onChange={(e) =>
+                            handleCheckboxChange('read', e.target.checked)
+                        }
                     />
                 </td>
 
-                {/* Checkbox Modifier */}
                 <td style={{ textAlign: 'center' }}>
                     <input
                         type="checkbox"
-                        checked={writeChecked}
-                        onChange={() => setWriteChecked(!writeChecked)}
+                        checked={nodeState.write}
+                        onChange={(e) =>
+                            handleCheckboxChange('write', e.target.checked)
+                        }
                     />
                 </td>
             </tr>
 
-            {/* Affichage récursif */}
             {expanded &&
                 hasChildren &&
                 node.children.map(child => (
-                    <TreeNode key={child.id} node={child} depth={depth + 1} />
+                    <TreeNode
+                        key={child.id}
+                        node={child}
+                        depth={depth + 1}
+                        state={state}
+                        dispatch={dispatch}
+                    />
                 ))}
         </>
     );
