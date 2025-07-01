@@ -4,6 +4,7 @@ import TreeNode from './TreeNode';
 import sectorisation from '../data/sectorisation.json';
 import { usePermissionsReducer } from '../hooks/usePermissionsReducer';
 import SummaryPanel from "./SummaryPanel";
+import './PermissionsTable.css';
 
 function PermissionsTable() {
     const root = sectorisation.data.roots[0];
