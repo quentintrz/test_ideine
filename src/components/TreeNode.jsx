@@ -31,7 +31,7 @@ function TreeNode({ node, depth, state, dispatch }) {
                     {node.name}
                 </td>
 
-                <td style={{ textAlign: 'center' }}>
+                <td className="checkbox-cell">
                     <input
                         type="checkbox"
                         checked={nodeState.read}
@@ -41,7 +41,7 @@ function TreeNode({ node, depth, state, dispatch }) {
                     />
                 </td>
 
-                <td style={{ textAlign: 'center' }}>
+                <td className="checkbox-cell">
                     <input
                         type="checkbox"
                         checked={nodeState.write}

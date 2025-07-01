@@ -16,3 +16,16 @@ th, td {
 tr {
     border-bottom: 1px solid #e5e7eb;
 }
+
+th {
+    text-align: center;
+}
+
+td:first-child {
+    text-align: left;
+}
+
+.checkbox-cell {
+    text-align: center;
+    border-left: 1px solid #d1d5db;
+}
