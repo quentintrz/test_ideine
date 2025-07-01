@@ -3,6 +3,7 @@ import { useReducer } from 'react';
 
 function buildInitialState(node, parentId = null, state = {}) {
     state[node.id] = {
+        name: node.name,
         read: false,
         write: false,
         children: node.children?.map(child => child.id) || [],
