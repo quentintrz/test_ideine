@@ -23,6 +23,7 @@ function TreeNode({ node, depth, state, dispatch }) {
                     {hasChildren && (
                         <button
                             onClick={() => setExpanded(!expanded)}
+                            className="expand-button"
                             style={{ marginRight: 8 }}
                         >
                             {expanded ? '▼' : '▶'}
