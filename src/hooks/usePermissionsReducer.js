@@ -1,5 +1,5 @@
 // 📄 src/hooks/usePermissionsReducer.js
-import { useReducer, useEffect } from 'react';
+import { useReducer } from 'react';
 
 function buildInitialState(node, parentId = null, state = {}) {
     state[node.id] = {
@@ -27,6 +27,23 @@ function reducer(state, action) {
             }
 
             applyToChildren(nodeId);
+            function updateParent(id) {
+                const parentId = newState[id].parent;
+                if (!parentId) return;
+
+                const siblingIds = newState[parentId].children;
+
+                const allChecked = siblingIds.every(
+                    childId => newState[childId][permission]
+                );
+
+                newState[parentId][permission] = allChecked;
+
+                updateParent(parentId);
+            }
+
+            updateParent(nodeId);
+
 
             return newState;
         }
