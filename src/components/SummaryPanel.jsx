@@ -1,4 +1,5 @@
 import React from 'react';
+import './PermissionsTable.css';
 
 function SummaryPanel({ state }) {
     const readLeafNodes = [];
@@ -13,25 +14,25 @@ function SummaryPanel({ state }) {
     }
 
     return (
-        <div style={{ marginTop: '2rem' }}>
+        <div className="summary-panel">
             <h3>Résumé des permissions</h3>
-
-            <div>
-                <strong>Lire :</strong>
-                <ul>
-                    {readLeafNodes.map(id => (
-                        <li key={id}>{state[id].name}</li>
-                    ))}
-                </ul>
-            </div>
-
-            <div>
-                <strong>Modifier :</strong>
-                <ul>
-                    {writeLeafNodes.map(id => (
-                        <li key={id}>{state[id].name}</li>
-                    ))}
-                </ul>
+            <div className="summary-columns">
+                <div className="summary-column">
+                    <strong>Permission de voir les brouillons :</strong>
+                    <ul>
+                        {readLeafNodes.map(id => (
+                            <li key={id}>{state[id].name}</li>
+                        ))}
+                    </ul>
+                </div>
+                <div className="summary-column">
+                    <strong>Permission de modifier les brouillons :</strong>
+                    <ul>
+                        {writeLeafNodes.map(id => (
+                            <li key={id}>{state[id].name}</li>
+                        ))}
+                    </ul>
+                </div>
             </div>
         </div>
     );

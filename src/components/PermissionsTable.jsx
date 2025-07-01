@@ -18,8 +18,8 @@ function PermissionsTable() {
                 <thead>
                 <tr>
                     <th></th>
-                    <th>Lire</th>
-                    <th>Modifier</th>
+                    <th>Voir les brouillons</th>
+                    <th>Modifier les brouillons</th>
                 </tr>
                 </thead>
                 <tbody>
